@@ -14,7 +14,7 @@ function App() {
     },
     {
       title: "Confermati",
-      type: "ul",
+      type: "ol",
       list: ["Gianni", "Fausto", "Gigi"],
       inputValue: ''
     },
@@ -26,55 +26,73 @@ function App() {
     },
     {
       title: "In forse",
-      type: "ul",
+      type: "ol",
       list: ["Tizio", "Caio", "Sempronio"],
       inputValue: ''
     }
   ])
-
-  const handleInputValues = (currentIndex, value) => {
-    const newListArray = [...allLists];
-    for (let ix = 0; ix < newListArray.length; ix++) {
-      const obj = newListArray[ix]
-      if (currentIndex === ix) {
+  
+  const updateInputValues = (objIndex, value) => {
+    const newAllLists = [...allLists];
+    for (let ix = 0; ix < newAllLists.length; ix++) {
+      const obj = newAllLists[ix]
+      if (objIndex === ix) {
         obj.inputValue = value
         break;
       }
     }
-    setAllLists(newListArray)
+    setAllLists(newAllLists)
   }
-  const handleAddToList = (currentIndex)=>{
-    const newListArray = [...allLists];
-    for (let ix = 0; ix < newListArray.length; ix++) {
-      const obj = newListArray[ix]
-      if (currentIndex === ix) {
-        obj.list = [obj.inputValue, ...obj.list]
+  const addGuest = (objIndex) => {
+    const newAllLists = [...allLists];
+    for (let ix = 0; ix < newAllLists.length; ix++) {
+      const obj = newAllLists[ix]
+      if (objIndex === ix) {
+        obj.list = [obj.inputValue, ...obj.list];
+        obj.inputValue = ''
         break;
       }
     }
-    setAllLists(newListArray)
+    setAllLists(newAllLists)
   }
-  return (<section id='app'>
+  const deleteGuest = (objIndex, stringIndex)=>{
+    const newAllLists = [...allLists];
+    for (let ix = 0; ix < newAllLists.length; ix++) {
+      const obj = newAllLists[ix]
+      if (objIndex === ix) {
+        obj.list = obj.list.filter((guest, i)=> i!== stringIndex)
+        break;
+      }
+    }
+    setAllLists(newAllLists) 
+  }
+  return (<section id='app-container'>
 
-    {allLists.map((elem, i) => {
+    {allLists.map((elem, objIndex) => {
       const { title, type, list, inputValue } = elem
-      return (<figure key={`list${i}`}>
+      return (<figure key={`list${objIndex}`}>
 
-        <div>
+        <div >
+          <h2>{title}</h2>
+          <div>
           <input
             type="text"
             value={inputValue}
-            onChange={(e) => handleInputValues(i, e.target.value)}
+            onChange={(e) => updateInputValues(objIndex, e.target.value)}
           />
           <button
           onClick={()=>{
-            handleAddToList(i)
+            addGuest(objIndex)
           }}
           >Aggiungi</button>
         </div>
-        <div >
-          <h2>{title}</h2>
-          <CustomList type={type} list={list} />
+          <CustomList 
+          type={type} 
+          list={list} 
+          buttons={['Elimina', 'Modifica']} 
+          deleteGuest = {deleteGuest}
+          objIndex = {objIndex}
+          />
         </div>
       </figure>)
     })}
