@@ -1,17 +1,17 @@
-export default ({ type, list, buttons, deleteGuest, objIndex }) => {
+export default ({ type, list, buttons, deleteGuest, editGuest }) => {
 
 
     if (type === 'ol') {
         return (
             <ol>
-                {list.map((string, listIndex) => {
+                {list.map((string, guestIndex) => {
                     return (
-                        <li key={`ol${listIndex}`}>
+                        <li key={`ol${guestIndex}`}>
                             {string}{buttons.map((btnText, ix) => {
                                 return (
                                     <button
-                                        key={`olBtn${listIndex}_${ix}`}
-                                        // onClick={deleteGuest(objIndex,listIndex)}
+                                        key={`olBtn${guestIndex}_${ix}`}
+                                        onClick={() => { btnText === 'Delete' ? deleteGuest(guestIndex) : editGuest(guestIndex) }}
                                     >
                                         {btnText}
                                     </button>)
@@ -24,12 +24,12 @@ export default ({ type, list, buttons, deleteGuest, objIndex }) => {
     } else if (type === 'ul') {
         return (
             <ul>
-                {list.map((string, listIndex) => {
-                    return (<li key={`ul${listIndex}`}>
+                {list.map((string, guestIndex) => {
+                    return (<li key={`ul${guestIndex}`}>
                         {string}{buttons.map((btnText, ix) => {
                             return (
                                 <button
-                                    key={`ulBtn${listIndex}_${ix}`}
+                                    key={`ulBtn${guestIndex}_${ix}`}
 
                                 >
                                     {btnText}
