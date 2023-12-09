@@ -9,25 +9,25 @@ function App() {
     {
       title: "Not yet invited",
       type: "ul",
-      list: ["Sergio", "Jhonny"],
+      list: ["Jan", "Toby", "Karen", "David"],
       inputValue: ''
     },
     {
       title: "Confirmed",
       type: "ol",
-      list: ["Gianni", "Fausto", "Gigi"],
+      list: ["Angela", "Dwight", "Michael", "Meredith"],
       inputValue: ''
     },
     {
       title: "Blacklist",
       type: "ul",
-      list: ["Dwight", "Miles", "Bobby"],
+      list: ["Cathy", "Jan", "Creed", "Ryan"],
       inputValue: ''
     },
     {
       title: "Maybe",
       type: "ol",
-      list: ["Tizio", "Caio", "Sempronio"],
+      list: ["Stanley", "Oscar", "Roy", "Hank"],
       inputValue: ''
     }
   ])
@@ -43,7 +43,7 @@ function App() {
             <div >
               <h2>{title}</h2>
               <div>
-                <input // list input
+                <input                                      // list input
                   type="text"
                   value={inputValue}
                   onChange={(e) => {
@@ -52,7 +52,7 @@ function App() {
                     setAllLists(newAllLists)
                   }}
                 />
-                <button  // list button - Add guest to the list          
+                <button                                     // ADD BUTTON          
                   onClick={() => {
                     const newAllLists = [...allLists];  // refactoring?
                     const obj = newAllLists[objIndex];  // refactoring?
@@ -67,21 +67,17 @@ function App() {
                 list={list}
                 buttons={['Delete', 'Edit']}
                 deleteGuest={(guestIndex) => {
-                  // const newAllLists = [...allLists];  // refactoring?
-                  // const obj = newAllLists[objIndex];  // refactoring?
-                  elem.list = list.filter((guest, i) => i !== guestIndex);
-                  setAllLists([...allLists])
+                  const newAllLists = [...allLists];   // refactoring?
+                  const obj = newAllLists[objIndex];   // refactoring? 
+                  obj.list = list.filter((guest, i) => i !== guestIndex);
+                  setAllLists(newAllLists)
                 }}
                 editGuest={(guestIndex) => {
-                  const newAllLists = [...allLists];  // refactoring?
-                  const obj = newAllLists[objIndex];  // refactoring?
-                  obj.list = obj.list.map((guest, i) => {
-                    if (i === guestIndex){
-                      guest = obj.inputValue
-                    }
-                  });
-                  obj.inputValue = '';
+                  const newAllLists = [...allLists];   // refactoring?
+                  const obj = newAllLists[objIndex];   // refactoring?
+                  obj.list[guestIndex] = inputValue
                   setAllLists(newAllLists)
+                  obj.inputValue = '';
                 }}
               />
             </div>

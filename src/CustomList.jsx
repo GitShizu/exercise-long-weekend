@@ -11,8 +11,7 @@ export default ({ type, list, buttons, deleteGuest, editGuest }) => {
                                 return (
                                     <button
                                         key={`olBtn${guestIndex}_${ix}`}
-                                        onClick={() => { btnText === 'Delete' ? deleteGuest(guestIndex) : editGuest(guestIndex) }}
-                                    >
+                                        onClick={() => btnText === 'Delete' ? deleteGuest(guestIndex) : editGuest(guestIndex)}>
                                         {btnText}
                                     </button>)
                             })}
@@ -30,8 +29,7 @@ export default ({ type, list, buttons, deleteGuest, editGuest }) => {
                             return (
                                 <button
                                     key={`ulBtn${guestIndex}_${ix}`}
-
-                                >
+                                    onClick={() => btnText === 'Delete' ? deleteGuest(guestIndex) : editGuest(guestIndex)}>
                                     {btnText}
                                 </button>)
                         })}
